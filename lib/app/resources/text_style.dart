@@ -1,7 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:me_car_garage/app/resources/color_manager.dart';
 
 class TextStyleConstant {
+   static const black18RobotoBold = TextStyle(
+      fontSize: 18,
+      color: Colors.black,
+      fontFamily: "Roboto",
+      fontWeight: _fontWeightBold);
   static const _fontWeightBold = FontWeight.w500;
   // static const _fontWeightNormal = FontWeight.normal;
   static final primary14Roboto = TextStyle(
@@ -14,7 +21,7 @@ class TextStyleConstant {
   static final primary16Roboto = TextStyle(
       fontSize: 16, color: ColorsManager.primary, fontFamily: "Roboto");
   static final primary16RobotoBold = TextStyle(
-      fontSize: 16,
+      fontSize: 16 ,
       color: ColorsManager.primary,
       fontFamily: "Roboto",
       fontWeight: _fontWeightBold);
@@ -22,6 +29,11 @@ class TextStyleConstant {
       fontSize: 22, color: ColorsManager.primary, fontFamily: "Roboto");
   static final primary22RobotoBold = TextStyle(
       fontSize: 22,
+      color: ColorsManager.primary,
+      fontFamily: "Roboto",
+      fontWeight: _fontWeightBold);
+        static final primary30RobotoBold = TextStyle(
+      fontSize: 30,
       color: ColorsManager.primary,
       fontFamily: "Roboto",
       fontWeight: _fontWeightBold);
@@ -100,4 +112,8 @@ class TextStyleConstant {
       TextStyle(fontSize: 16, color: Colors.grey, fontFamily: "Roboto-Bold");
   static const red22RobotoBold = TextStyle(
       fontSize: 22, color: Colors.redAccent, fontFamily: "Roboto-Bold");
+       static const red16Roboto = TextStyle(
+      fontSize: 16, color: Colors.redAccent, fontFamily: "Roboto");
+  static const orange14Roboto = TextStyle(
+      fontSize: 14, color: Colors.orange, fontFamily: "Roboto");
 }

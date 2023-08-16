@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:me_car_garage/app/resources/text_style.dart';
+import 'package:me_car_garage/app/routes/app_pages.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrView extends StatefulWidget {
@@ -61,6 +63,7 @@ class _QrViewState extends State<QrView> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        Get.offNamed(Routes.BOOKING_DETAIL,arguments: result!.code);
       });
     });
   }

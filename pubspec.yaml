@@ -1,34 +1,38 @@
 name: me_car_garage
-description: A new Flutter project.
-publish_to: none
 version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.0.5 <4.0.0'
 
-environment:
-  sdk: '>=3.1.0-213.0.dev <4.0.0'
-
-dependencies:
+dependencies: 
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.7
   easy_date_timeline: ^0.0.7
   qr_code_scanner: ^1.0.1
   intl:
   get: 4.6.5
-  flutter:
+  http:
+  flutter_launcher_icons: ^0.13.1
+  shared_preferences: ^2.1.2
+  cached_network_image: ^3.2.3
+  url_launcher:
+  quickalert:
+  flutter: 
     sdk: flutter
   flutter_localizations:
-    sdk: flutter
+    sdk: flutter 
 
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
+dev_dependencies: 
   flutter_lints: ^2.0.0
-
-flutter:
+  flutter_test: 
+    sdk: flutter
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+flutter: 
   uses-material-design: true
-
   assets:
     - assets/images/
     - assets/icons/
-

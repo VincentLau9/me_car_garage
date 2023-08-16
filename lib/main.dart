@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 void main() {
   runApp(
     GetMaterialApp(

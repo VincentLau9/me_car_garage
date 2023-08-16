@@ -56,34 +56,31 @@ class SignInView extends BaseView<SignInController> {
                       ),
                     ),
                     Center(
-                      child: 
-                       Text(
-                      'App dành cho quản lý',
-                      style: TextStyleConstant.grey16RobotoBold,
-                    ),
+                      child: Text(
+                        'App dành cho quản lý',
+                        style: TextStyleConstant.grey16RobotoBold,
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Text(
-                      'Tài khoản Email',
+                      'Số điện thoại',
                       style: TextStyleConstant.primary16RobotoBold,
                     ),
                     SizedBox(
                       height: 5,
                     ),
-                    // Obx(
-                    //   () =>
-                       FormFieldWidget(
+                    Obx(
+                      () => FormFieldWidget(
                           padding: 10,
-                          // initValue: controller.nameInput.value,
                           textInputType: TextInputType.number,
-                          labelText: "Nhập email",
-                          // errorText: "${controller.errorEmailInput}",
-                          // setValueFunc: controller.setValueEmail
-                          setValueFunc: (){},
+                          labelText: "Nhập số điện thoại",
+                          errorText: "${controller.errorEmailInput}",
+                          setValueFunc: controller.setValuePhone
+                          // setValueFunc: (){},
                           ),
-                    // ),
+                    ),
                     SizedBox(
                       height: 16,
                     ),
@@ -92,30 +89,25 @@ class SignInView extends BaseView<SignInController> {
                     SizedBox(
                       height: 5,
                     ),
-                    // Obx(
-                    //   () => 
-                      FormFieldWidget(
+                    Obx(
+                      () => FormFieldWidget(
                           padding: 10,
                           enableInteractiveSelection: false,
-                          // isObscureText: controller.checkpassword.value,
+                          isObscureText: controller.checkpassword.value,
                           suffixIcon: IconButton(
-                            icon: 
-                            Icon(
-                            // controller.checkpassword.value?
-                                //  Icons.visibility_off:
-                                 Icons.visibility),
+                            icon: Icon(controller.checkpassword.value
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                             onPressed: () {
-                              // controller.checkpassword.value =
-                              //     !controller.checkpassword.value;
+                              controller.checkpassword.value =
+                                  !controller.checkpassword.value;
                             },
                           ),
                           textInputType: TextInputType.text,
                           labelText: "Nhập mật khẩu",
-                          // errorText: "${controller.errorPasswordInput}",
-                          setValueFunc: (){},
-                          // setValueFunc: controller.setValuePassword
-                          ),
-                    // ),
+                          errorText: "${controller.errorPasswordInput}",
+                          setValueFunc: controller.setValuePassword),
+                    ),
                     SizedBox(
                       height: 16,
                     ),
@@ -128,9 +120,8 @@ class SignInView extends BaseView<SignInController> {
                     SizedBox(
                       height: 16,
                     ),
-                    // Obx(
-                    //   () =>
-                       ConstrainedBox(
+                    Obx(
+                      () => ConstrainedBox(
                         constraints:
                             BoxConstraints.tightFor(width: context.width),
                         child: ElevatedButton(
@@ -141,33 +132,32 @@ class SignInView extends BaseView<SignInController> {
                               ),
                             ),
                             backgroundColor: MaterialStateProperty.all(
-                                // controller.enableButton.isTrue?
-                                     ColorsManager.primary),
-                                    //  Colors.grey),
+                                controller.enableButton.isTrue
+                                    ? ColorsManager.primary
+                                    : Colors.grey),
                             padding:
                                 MaterialStateProperty.all(EdgeInsets.all(14)),
                           ),
-                          child:
-                          //  Obx(
-                          //   () =>
-                            //  controller.lockButton.value
-                            //     ? CircularProgressIndicator(
-                            //         color: Colors.white,
-                            //       ):
-                                Text(
+                          child: Obx(
+                            () => controller.lockButton.value
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
                                     "Đăng nhập",
                                     style: TextStyleConstant.white16Roboto,
                                   ),
-                          // ),
+                          ),
                           onPressed: () async {
                             Get.offAllNamed(Routes.HOME);
-                            // if (controller.enableButton.isTrue&&controller.lockButton.isFalse) {
-                            //   controller.login();
-                            // }
+                            if (controller.enableButton.isTrue &&
+                                controller.lockButton.isFalse) {
+                              await controller.login();
+                            }
                           },
                         ),
                       ),
-                    // ),
+                    ),
                     SizedBox(
                       height: 26,
                     ),
