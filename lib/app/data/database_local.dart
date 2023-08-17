@@ -11,24 +11,24 @@ class DatabaseLocal {
 
   Future<void> saveRefeshToken(String refeshToken) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString("refeshToken", refeshToken);
+    prefs.setString("GR-refeshToken", refeshToken);
   }
 
 
   Future<String?> getRefeshToken() async {
     await Future.delayed(Duration(seconds: 3));
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('refeshToken');
+    return prefs.getString('GR-refeshToken');
   }
 
   Future<void> setJwtToken(String accessToken) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('accessToken', accessToken);
+    await prefs.setString('GR-accessToken', accessToken);
   }
 
   Future<void> removeJwtToken() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('accessToken');
-    await prefs.remove('refeshToken');
+    await prefs.remove('GR-accessToken');
+    await prefs.remove('GR-refeshToken');
   }
 }

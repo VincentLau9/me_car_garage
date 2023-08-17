@@ -16,7 +16,7 @@ class QrView extends StatefulWidget {
 }
 
 class _QrViewState extends State<QrView> {
- final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
 
@@ -50,7 +50,10 @@ class _QrViewState extends State<QrView> {
               child: (result != null)
                   ? Text(
                       'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  : Text('Scan a code',style:TextStyleConstant.primary22RobotoBold,),
+                  : Text(
+                      'Scan a code',
+                      style: TextStyleConstant.primary22RobotoBold,
+                    ),
             ),
           )
         ],
@@ -61,10 +64,13 @@ class _QrViewState extends State<QrView> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-        Get.offNamed(Routes.BOOKING_DETAIL,arguments: result!.code);
-      });
+      try {
+        setState(() {
+          result = scanData;
+          int idBooking = int.tryParse(result!.code!)!;
+          Get.offNamed(Routes.BOOKING_DETAIL, arguments: idBooking);
+        });
+      } catch (e) {}
     });
   }
 

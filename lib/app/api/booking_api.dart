@@ -25,7 +25,7 @@ class BookingApi {
     return response;
   }
   static Future<dynamic> changeStatus(int idBooking,int status) async {
-    log(status.toString());
+    log(idBooking.toString());
     var url = Uri.parse(BaseLink.UPDATE_STATUS + '${idBooking}&${status}');
     final response = await http.put(
       url,

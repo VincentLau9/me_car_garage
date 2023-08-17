@@ -358,7 +358,7 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                                 ],
                               ),
                               controller.bookingDetail.value.discountPrice ==
-                                      '0.0000 VND'
+                                      '0.000 VND'
                                   ? SizedBox()
                                   : Row(
                                       mainAxisAlignment:
