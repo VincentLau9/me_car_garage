@@ -20,6 +20,9 @@ class BookingDetailView extends BaseView<BookingDetailController> {
         bottomNavigationBar: Obx(() {
           String status =
               controller.bookingDetail.value.bookingStatus ?? "Pending";
+              if(controller.isLoading.value){
+                return SizedBox();
+              }
           return Container(
               padding: EdgeInsets.symmetric(
                   horizontal: UtilsReponsive.width(context, 50),
@@ -324,6 +327,7 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                                                               index1]
                                                           .servicePrice!
                                                           .toString(),
+                                                          textAlign: TextAlign.right,
                                                       style: TextStyle(
                                                           color:
                                                               Colors.black54)),
