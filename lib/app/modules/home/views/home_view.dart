@@ -138,11 +138,7 @@ class HomeView extends BaseView<HomeController> {
                     style: TextStyleConstant.black22RobotoBold,
                   ),
                   const Spacer(),
-                  Icon(
-                    Icons.settings,
-                    color: Colors.black,
-                    size: UtilsReponsive.height(context, 30),
-                  ),
+                  SizedBox()
                 ],
               ),
             ),
@@ -278,8 +274,8 @@ class HomeView extends BaseView<HomeController> {
               ),
             ),
             GestureDetector(
-              onTap: () async{
-           await     Get.find<StartAppController>().logout();
+              onTap: () async {
+                await Get.find<StartAppController>().logout();
               },
               child: Container(
                 margin: UtilsReponsive.paddingOnly(context,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:me_car_garage/app/api/user_api.dart';
@@ -17,6 +18,8 @@ class StartAppController extends BaseController {
   Rx<String> numberPhone = ''.obs;
   Rx<int> idGarage = 0.obs;
   Rx<int> userId = 0.obs;
+  Rx<String> email = ''.obs;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   // Rx<UserModel> userModelT = UserModel().obs;
   @override
@@ -26,11 +29,20 @@ class StartAppController extends BaseController {
       Duration(seconds: 3),
     );
     await refeshToken();
+    _firebaseMessaging.requestPermission();
+    String? deviceToken = await _firebaseMessaging.getToken();
+    print('Device Token: $deviceToken');
+
     // userModelT.value = await getLoginModel();
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
+    // await _firebaseMessaging.subscribeToTopic('topic_name');
+    // await _firebaseMessaging.sendMessage(
+    //     to: 'dTOwlSztSAqoL4WrlBF3v1:APA91bFbG-drb3BsHREHXRuGSZ84WGIx4BNm1JVV6OX4jZlpgwTtgun0-Bzz4eOYRw2TZ3_jkvJ8k11gCAtcv4HrrMzrj9q2N1ZV9LT0HcTvYL3q2FTlCRRzyDROK_1OzOd51B755Rlk',
+    //     data: {"title": "DATA"},
+    //     collapseKey: "HEHE");
     super.onReady();
   }
 
@@ -55,7 +67,8 @@ class StartAppController extends BaseController {
         String refeshToken = data["refreshToken"];
         name(data["userFullName"] ?? "");
         numberPhone(data["userPhone"] ?? "");
-        userId(data["userId"]??0);
+        userId(data["userId"] ?? 0);
+        email(data["userEmail"]??"");
         log(data["userFullName"]);
         await DatabaseLocal.instance.saveRefeshToken(refeshToken);
 
@@ -69,5 +82,21 @@ class StartAppController extends BaseController {
   logout() async {
     await DatabaseLocal.instance.removeJwtToken();
     Get.offAllNamed(Routes.SIGN_IN);
+  }
+
+  sendNotify()async{
+    //  final message =<String,dynamic> {
+    //   'notification': {
+    //     'title': 'Notification Title',
+    //     'body': 'Notification Body'
+    //   },
+    //   'to': 'dTOwlSztSAqoL4WrlBF3v1:APA91bFbG-drb3BsHREHXRuGSZ84WGIx4BNm1JVV6OX4jZlpgwTtgun0-Bzz4eOYRw2TZ3_jkvJ8k11gCAtcv4HrrMzrj9q2N1ZV9LT0HcTvYL3q2FTlCRRzyDROK_1OzOd51B755Rlk'
+    // };
+
+    // final response = await _firebaseMessaging.sendMessage(
+    //   to: 
+    //   'dTOwlSztSAqoL4WrlBF3v1:APA91bFbG-drb3BsHREHXRuGSZ84WGIx4BNm1JVV6OX4jZlpgwTtgun0-Bzz4eOYRw2TZ3_jkvJ8k11gCAtcv4HrrMzrj9q2N1ZV9LT0HcTvYL3q2FTlCRRzyDROK_1OzOd51B755Rlk',
+    //   data:   message,
+    // );
   }
 }

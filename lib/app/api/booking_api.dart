@@ -7,8 +7,6 @@ import 'package:me_car_garage/app/modules/start_app/controllers/start_app_contro
 import 'package:me_car_garage/app/resources/base_link.dart';
 
 class BookingApi {
-  
-
   static Future<dynamic> loadBookingDetail(int idBooking) async {
     log(idBooking.toString());
     var url = Uri.parse(BaseLink.LOADING_BOOKING_DETAIL + '${idBooking}');
@@ -24,7 +22,8 @@ class BookingApi {
 
     return response;
   }
-  static Future<dynamic> changeStatus(int idBooking,int status) async {
+
+  static Future<dynamic> changeStatus(int idBooking, int status) async {
     log(idBooking.toString());
     var url = Uri.parse(BaseLink.UPDATE_STATUS + '${idBooking}&${status}');
     final response = await http.put(
@@ -40,8 +39,10 @@ class BookingApi {
     return response;
   }
 
-    static Future<dynamic> updateBookingStatus(int bookingDetailId,int status) async {
-    var url = Uri.parse(BaseLink.UPDATE_STATUS_BOOKINGDETAIL + '${bookingDetailId}&${status}');
+  static Future<dynamic> updateBookingStatus(
+      int bookingDetailId, int status) async {
+    var url = Uri.parse(
+        BaseLink.UPDATE_STATUS_BOOKINGDETAIL + '${bookingDetailId}&${status}');
     final response = await http.put(
       url,
       headers: <String, String>{
@@ -55,8 +56,8 @@ class BookingApi {
     return response;
   }
 
-  static Future<dynamic> getAllBookingByDate (String date) async{
- var url = Uri.parse(BaseLink.GET_BOOKING + '${date}');
+  static Future<dynamic> getAllBookingByDate(String date) async {
+    var url = Uri.parse(BaseLink.GET_BOOKING + '${date}');
     final response = await http.get(
       url,
       headers: <String, String>{
@@ -69,8 +70,9 @@ class BookingApi {
 
     return response;
   }
-    static Future<dynamic> getBookingServiceDetail (int idBooking) async{
- var url = Uri.parse(BaseLink.GET_BOOKING_SERVICE_DETAIL + '${idBooking}');
+
+  static Future<dynamic> getBookingServiceDetail(int idBooking) async {
+    var url = Uri.parse(BaseLink.GET_BOOKING_SERVICE_DETAIL + '${idBooking}');
     final response = await http.get(
       url,
       headers: <String, String>{
@@ -83,6 +85,6 @@ class BookingApi {
 
     return response;
   }
-  
+
   //changeStatus
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:me_car_garage/app/base/base_view.dart';
+import 'package:me_car_garage/app/modules/start_app/controllers/start_app_controller.dart';
 import 'package:me_car_garage/app/resources/assets_manager.dart';
 import 'package:me_car_garage/app/resources/color_manager.dart';
 import 'package:me_car_garage/app/resources/reponsive_utils.dart';
 import 'package:me_car_garage/app/resources/text_style.dart';
+
 import '../controllers/personal_information_controller.dart';
 
 class PersonalInformationView extends BaseView<PersonalInformationController> {
@@ -34,9 +36,7 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
               )),
         ),
       ),
-      body:
-      
-       Material(
+      body: Material(
         child: Container(
           width: UtilsReponsive.width(context, 375),
           height: UtilsReponsive.height(context, 812),
@@ -47,28 +47,13 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                controller.isLoading.value == true?SizedBox():SizedBox(),
-                Container(
-                  width: UtilsReponsive.width(context, 375),
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: UtilsReponsive.width(context, 81),
-                    height: UtilsReponsive.height(context, 81),
-                    margin: UtilsReponsive.paddingOnly(context, top: 10),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                Container(
-                    margin: UtilsReponsive.paddingOnly(context, top: 20),
-                    width: UtilsReponsive.width(context, 375),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Nhấn để cập nhật ảnh đại diện mới",
-                      style: TextStyleConstant.orange14Roboto,
-                    )),
+                controller.isLoading.value == true ? SizedBox() : SizedBox(),
+                Center(
+                    child: ClipOval(
+                        child: Image.asset('assets/images/user1.png',
+                            fit: BoxFit.fill,
+                            height: UtilsReponsive.height(context, 80),
+                            width: UtilsReponsive.height(context, 80)))),
                 Padding(
                   padding:
                       UtilsReponsive.paddingOnly(context, top: 30, left: 20),
@@ -81,14 +66,17 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
                   padding: UtilsReponsive.paddingOnly(context,
                       top: 20, right: 20, left: 20),
                   child: TextFormField(
+                    onChanged: (value) {
+                      controller.setNameData(value);
+                    },
                     textInputAction: TextInputAction.done,
                     style: TextStyleConstant.black16Roboto,
                     cursorColor: ColorsManager.primary,
                     controller: null,
                     keyboardType: TextInputType.text,
-                    validator: (value) {},
+                    initialValue:
+                        Get.find<StartAppController>().name.toString(),
                     decoration: InputDecoration(
-                      hintText: "Nguyễn Huỳnh Vân Anh",
                       hintStyle: TextStyleConstant.grey14Roboto,
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -124,43 +112,50 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
                   ),
                 ),
                 Padding(
-                  padding: UtilsReponsive.paddingOnly(context,
-                      top: 20, right: 20, left: 20),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.done,
-                    style: TextStyleConstant.black16Roboto,
-                    cursorColor: ColorsManager.primary,
-                    controller: null,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {},
-                    decoration: InputDecoration(
-                      hintText: "nhvanh@gmail.com",
-                      hintStyle: TextStyleConstant.grey14Roboto,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.2), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.2), width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: ColorsManager.primary,
+                    padding: UtilsReponsive.paddingOnly(context,
+                        top: 20, right: 20, left: 20),
+                    child: Obx(
+                      () => TextFormField(
+                        initialValue:   Get.find<StartAppController>().email.value.isEmpty?"":  Get.find<StartAppController>().email.value,
+                        textInputAction: TextInputAction.done,
+                        style: TextStyleConstant.black16Roboto,
+                        cursorColor: ColorsManager.primary,
+                        controller: null,
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          controller.setEmailData(value);
+                        },
+                        decoration: InputDecoration(
+                          errorText: controller.error.value.isNotEmpty
+                              ? controller.error.value
+                              : null,
+                          hintText: "abc@gmail.com",
+                          hintStyle: TextStyleConstant.grey14Roboto,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.2), width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.2), width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: ColorsManager.primary,
+                            ),
+                          ),
+                          prefixIcon: ImageIcon(
+                            AssetImage(IconAssets.icMessage),
+                            size: UtilsReponsive.height(context, 30),
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                      prefixIcon: ImageIcon(
-                        AssetImage(IconAssets.icMessage),
-                        size: UtilsReponsive.height(context, 30),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+                    )),
                 Padding(
                   padding:
                       UtilsReponsive.paddingOnly(context, top: 30, left: 20),
@@ -173,15 +168,19 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
                   padding: UtilsReponsive.paddingOnly(context,
                       top: 20, right: 20, left: 20),
                   child: TextFormField(
+                    initialValue:
+                        Get.find<StartAppController>().numberPhone.toString(),
+                    enabled: false,
                     textInputAction: TextInputAction.done,
                     style: TextStyleConstant.black16Roboto,
                     cursorColor: ColorsManager.primary,
                     controller: null,
                     keyboardType: TextInputType.phone,
-                    validator: (value) {},
+                    // validator: (value) {},
                     decoration: InputDecoration(
-                      hintText: "0123456789",
-                      hintStyle: TextStyleConstant.grey14Roboto,
+                      // hintText:
+
+                      // hintStyle: TextStyleConstant.grey14Roboto,
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey.withOpacity(0.2), width: 1),
@@ -207,31 +206,32 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
                     ),
                   ),
                 ),
+                // Padding(
+                //   padding:
+                //       UtilsReponsive.paddingOnly(context, top: 30, left: 20),
+                //   child: Text(
+                //     "Mật khẩu",
+                //     style: TextStyleConstant.black16RobotoBold,
+                //   ),
+                // ),
+                // Padding(
+                //   padding:
+                //       UtilsReponsive.paddingOnly(context, top: 20, left: 20),
+                //   child: Text(
+                //     "Đổi mật khẩu",
+                //     style: TextStyleConstant.primary16RobotoBold,
+                //   ),
+                // ),
                 Padding(
-                  padding:
-                      UtilsReponsive.paddingOnly(context, top: 30, left: 20),
-                  child: Text(
-                    "Mật khẩu",
-                    style: TextStyleConstant.black16RobotoBold,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      UtilsReponsive.paddingOnly(context, top: 20, left: 20),
-                  child: Text(
-                    "Đổi mật khẩu",
-                    style: TextStyleConstant.primary16RobotoBold,
-                  ),
-                ),
-                Padding(
-                  padding:
-                    UtilsReponsive.paddingOnly(context, top: 50, left: 20,right: 20, bottom: 50),
+                  padding: UtilsReponsive.paddingOnly(context,
+                      top: 50, left: 20, right: 20, bottom: 50),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorsManager.primary,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      padding: UtilsReponsive.paddingOnly(context, top: 15,bottom: 15),
+                      padding: UtilsReponsive.paddingOnly(context,
+                          top: 15, bottom: 15),
                     ),
 
                     // ignore: sort_child_properties_last
@@ -243,7 +243,9 @@ class PersonalInformationView extends BaseView<PersonalInformationController> {
                         style: TextStyleConstant.white16Roboto,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async{
+                   await   controller.updateInfomation();
+                    },
                   ),
                 ),
               ],

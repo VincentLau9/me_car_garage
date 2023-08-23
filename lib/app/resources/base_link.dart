@@ -1,4 +1,5 @@
 class BaseLink {
+  static const updateInfo =domain+ 'api/user/update-user';
   static const domain = 'https://carserviceappservice.azurewebsites.net/';
   static const login = domain + 'api/authentication/login';
   static const LOADING_BOOKING_DETAIL = domain + 'api/booking/detail-booking-for-staff/';

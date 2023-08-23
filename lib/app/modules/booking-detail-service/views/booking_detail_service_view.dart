@@ -196,7 +196,7 @@ class BookingDetailServiceView
                           Obx(() => controller.bookingOverallDetail.value.mechanicServiceStatusForStaffDtos!.isEmpty?Text("Đơn hàng chưa được phân bổ cho thợ")
                           :
                           Container(
-                              height: UtilsReponsive.height(context, 100),
+                              height: UtilsReponsive.height(context, 120),
                               width: double.infinity,
                               child: ListView.separated(
                                 shrinkWrap: true,
