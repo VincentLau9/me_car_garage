@@ -19,6 +19,7 @@ class BookingDetail {
   String? totalPrice;
   String? finalPrice;
   String? bookingStatus;
+  bool? waitForAccept;
   CarBookingDetailForStaffDto? carBookingDetailForStaffDto;
   List<GroupServiceBookingDetailDto>? groupServiceBookingDetailDtos;
 
@@ -33,7 +34,9 @@ class BookingDetail {
       this.finalPrice,
       this.carBookingDetailForStaffDto,
       this.groupServiceBookingDetailDtos,
-      this.bookingStatus});
+      this.bookingStatus,
+      this.waitForAccept
+      });
 
   factory BookingDetail.fromJson(Map<String, dynamic> json) => BookingDetail(
         customerName: json["customerName"],
@@ -45,6 +48,7 @@ class BookingDetail {
         totalPrice: json["totalPrice"],
         finalPrice: json["finalPrice"],
         bookingStatus: json["bookingStatus"],
+        waitForAccept: json["waitForAccept"]??false,
         carBookingDetailForStaffDto: json["carBookingDetailForStaffDto"] == null
             ? null
             : CarBookingDetailForStaffDto.fromJson(
@@ -67,6 +71,7 @@ class BookingDetail {
         "totalPrice": totalPrice,
         "finalPrice": finalPrice,
         "bookingStatus": bookingStatus,
+        "waitForAccept":waitForAccept,
         "carBookingDetailForStaffDto": carBookingDetailForStaffDto?.toJson(),
         "groupServiceBookingDetailDtos": groupServiceBookingDetailDtos == null
             ? []
@@ -126,21 +131,25 @@ class GroupServiceBookingDetailDto {
 }
 
 class ServiceListBookingDetailDto {
+  bool? isNew;
   String? servicePrice;
   String? serviceName;
 
   ServiceListBookingDetailDto({
+    this.isNew,
     this.servicePrice,
     this.serviceName,
   });
 
   factory ServiceListBookingDetailDto.fromJson(Map<String, dynamic> json) =>
       ServiceListBookingDetailDto(
+        isNew: json["isNew"] ?? false,
         servicePrice: json["servicePrice"],
         serviceName: json["serviceName"],
       );
 
   Map<String, dynamic> toJson() => {
+        "isNew": isNew,
         "servicePrice": servicePrice,
         "serviceName": serviceName,
       };

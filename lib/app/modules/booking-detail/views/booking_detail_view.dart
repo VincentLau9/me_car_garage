@@ -20,9 +20,11 @@ class BookingDetailView extends BaseView<BookingDetailController> {
         bottomNavigationBar: Obx(() {
           String status =
               controller.bookingDetail.value.bookingStatus ?? "Pending";
-              if(controller.isLoading.value){
-                return SizedBox();
-              }
+          bool waitForAccept =
+              controller.bookingDetail.value.waitForAccept ?? false;
+          if (controller.isLoading.value) {
+            return SizedBox();
+          }
           return Container(
               padding: EdgeInsets.symmetric(
                   horizontal: UtilsReponsive.width(context, 50),
@@ -36,20 +38,24 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      backgroundColor:
-                          MaterialStateProperty.all(ColorsManager.primary),
+                      backgroundColor: MaterialStateProperty.all(
+                          waitForAccept ? Colors.brown : ColorsManager.primary),
                       padding: MaterialStateProperty.all(EdgeInsets.all(14)),
                     ),
                     child: Text(
-                      status == 'Pending'
-                          ? "Check In"
-                          : status == 'CheckIn'
-                              ? "Tiến trình"
-                              : "Đã hoàn thành",
+                      waitForAccept
+                          ? "Có sự thay đổi"
+                          : status == 'Pending'
+                              ? "Check In"
+                              : status == 'CheckIn'
+                                  ? "Tiến trình"
+                                  : "Đã hoàn thành",
                       style: TextStyleConstant.white16Roboto,
                     ),
                     onPressed: () async {
-                      await controller.changeStatus();
+                      if (!waitForAccept) {
+                        await controller.changeStatus();
+                      }
                     },
                   )));
         }),
@@ -310,6 +316,18 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                                                               index1]
                                                           .serviceName!,
                                                       style: TextStyle(
+                                                          decoration: controller
+                                                                  .bookingDetail
+                                                                  .value
+                                                                  .groupServiceBookingDetailDtos![
+                                                                      index]
+                                                                  .serviceListBookingDetailDtos![
+                                                                      index1]
+                                                                  .isNew!
+                                                              ? TextDecoration
+                                                                  .none
+                                                              : TextDecoration
+                                                                  .lineThrough,
                                                           color:
                                                               Colors.black54)),
                                                 ),
@@ -327,8 +345,21 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                                                               index1]
                                                           .servicePrice!
                                                           .toString(),
-                                                          textAlign: TextAlign.right,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       style: TextStyle(
+                                                          decoration: controller
+                                                                  .bookingDetail
+                                                                  .value
+                                                                  .groupServiceBookingDetailDtos![
+                                                                      index]
+                                                                  .serviceListBookingDetailDtos![
+                                                                      index1]
+                                                                  .isNew!
+                                                              ? TextDecoration
+                                                                  .none
+                                                              : TextDecoration
+                                                                  .lineThrough,
                                                           color:
                                                               Colors.black54)),
                                                 ))

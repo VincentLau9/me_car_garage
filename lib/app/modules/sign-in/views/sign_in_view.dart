@@ -149,7 +149,6 @@ class SignInView extends BaseView<SignInController> {
                                   ),
                           ),
                           onPressed: () async {
-                            Get.offAllNamed(Routes.HOME);
                             if (controller.enableButton.isTrue &&
                                 controller.lockButton.isFalse) {
                               await controller.login();

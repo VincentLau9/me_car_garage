@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:me_car_garage/app/api/booking_api.dart';
 import 'package:me_car_garage/app/base/base_controller.dart';
 import 'package:me_car_garage/app/model/booking-overall.dart';
+import 'package:me_car_garage/app/resources/color_manager.dart';
 
 class HomeController extends BaseController {
   //TODO: Implement HomeController
@@ -65,6 +67,48 @@ swapTabScreen(bool value){
     isLoading(false);
     }
     
+  }
+  Widget statusBooking(String status,bool waittingForAccept, BuildContext context) {
+    Color color = Colors.amber;
+    String text = "";
+      if (waittingForAccept) {
+      color = Colors.brown;
+      text = "Có sự thay đổi";
+    } else {
+    switch (status) {
+      case "Pending":
+        color = Colors.amber.shade600;
+        text = "Sắp tới";
+        break;
+      case "Canceled":
+        color = ColorsManager.colorCancel;
+        text = "Đã huỷ";
+        break;
+      case "CheckIn":
+        color = ColorsManager.colorCheckIn;
+        text = "Đang xử lý";
+        break;
+      case "Completed":
+        color = ColorsManager.colorDone;
+        text = "Hoàn thành";
+        break;
+      default:
+    }
+    }
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15)),
+      child: Center(
+          child: Text(
+        text,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      )),
+    );
+  }
+  sortData(){
+    listBooking.reversed;
   }
 
   void increment() => count.value++;

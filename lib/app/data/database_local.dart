@@ -16,7 +16,6 @@ class DatabaseLocal {
 
 
   Future<String?> getRefeshToken() async {
-    await Future.delayed(Duration(seconds: 3));
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('GR-refeshToken');
   }

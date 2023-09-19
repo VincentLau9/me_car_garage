@@ -43,16 +43,23 @@ class BookingListForStaffResponseDto {
   String? carName;
   String? customerName;
   String? bookingDuration;
+  String? carLicensePlate;
+  String? bookingStatus;
+  bool? waitForAccept;
 
   BookingListForStaffResponseDto(
-      {this.carName, this.customerName, this.bookingDuration, this.bookingId});
+      {this.carName, this.customerName, this.bookingDuration, this.bookingId, this.carLicensePlate,this.bookingStatus,this.waitForAccept});
 
   factory BookingListForStaffResponseDto.fromJson(Map<String, dynamic> json) =>
       BookingListForStaffResponseDto(
+        
         bookingId: json["bookingId"],
         carName: json["carName"],
         customerName: json["customerName"],
         bookingDuration: json["bookingDuration"],
+        carLicensePlate: json["carLicensePlate"],
+        bookingStatus:json["bookingStatus"],
+        waitForAccept:json["waitForAccept"]??false
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,5 +67,8 @@ class BookingListForStaffResponseDto {
         "carName": carName,
         "customerName": customerName,
         "bookingDuration": bookingDuration,
+        "carLicensePlate":carLicensePlate,
+        "bookingStatus":bookingStatus,
+        "waitForAccept":waitForAccept
       };
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'package:me_car_garage/app/base/base_view.dart';
 import 'package:me_car_garage/app/modules/account/views/account_view.dart';
@@ -403,23 +404,22 @@ class HomeView extends BaseView<HomeController> {
                           ],
                         ))),
                 Expanded(
-                    child: GestureDetector(
-                  onTap: () async {
-                    await controller.changeDate(DateTime.now());
-                  },
-                  child: Container(
-                    height: UtilsReponsive.height(context, 40),
-                    width: UtilsReponsive.width(context, 60),
-                    decoration: BoxDecoration(
-                        color: ColorsManager.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text(
-                      'Hôm nay',
-                      style: TextStyleConstant.primary16RobotoBold,
-                    )),
-                  ),
-                ))
+                    child: DateFormat('dd-MM-yyyy')
+                                .format(controller.dateChoose.value) !=
+                            DateFormat('dd-MM-yyyy').format(DateTime.now())
+                        ? SizedBox()
+                        : Container(
+                            height: UtilsReponsive.height(context, 40),
+                            width: UtilsReponsive.width(context, 60),
+                            decoration: BoxDecoration(
+                                color: ColorsManager.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                                child: Text(
+                              'Hôm nay',
+                              style: TextStyleConstant.primary16RobotoBold,
+                            )),
+                          ))
               ],
             ),
           )),
@@ -472,7 +472,12 @@ class HomeView extends BaseView<HomeController> {
                           'Mô tả chi tiết',
                           style: TextStyleConstant.grey14Roboto,
                         ))),
-                Icon(Icons.sort)
+                IconButton(
+                  icon: Icon(Icons.sort),
+                  onPressed: () {
+                    controller.sortData();
+                  },
+                )
               ],
             ),
           ),
@@ -489,117 +494,161 @@ class HomeView extends BaseView<HomeController> {
                           ),
                         ),
                       )
-                    : ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: controller.listBooking.value.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.only(top: 10),
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    controller.listBooking[index].hour
-                                        .toString(),
-                                    style: TextStyleConstant.black16RobotoBold,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                      // height: 400,
-                                      child: ListView.separated(
-                                          primary: false,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          padding: EdgeInsets.all(0),
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index1) {
-                                            return Container(
-                                              height: UtilsReponsive.height(
-                                                  context, 100),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    surfaceTintColor:
-                                                        ColorsManager.primary,
-                                                    shadowColor:
-                                                        ColorsManager.primary,
-                                                    child: ListTile(
-                                                      onTap: () {
-                                                        Get.toNamed(
-                                                            Routes
-                                                                .BOOKING_DETAIL,
-                                                            arguments: controller
+                    : controller.listBooking.isEmpty
+                        ? Center(
+                            child: Text(
+                              "Hôm nay chưa có đơn đặt hàng nào",
+                              style: TextStyleConstant.black14Roboto,
+                            ),
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: controller.listBooking.value.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(top: 10),
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        controller.listBooking[index].hour
+                                            .toString(),
+                                        style:
+                                            TextStyleConstant.black16RobotoBold,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                          // height: 400,
+                                          child: ListView.separated(
+                                              primary: false,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              padding: EdgeInsets.all(0),
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index1) {
+                                                return Container(
+                                                  height: UtilsReponsive.height(
+                                                      context, 100),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                  child: Stack(
+                                                    children: [
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: UtilsReponsive
+                                                                .height(context,
+                                                                    10)),
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          color: Colors
+                                                              .white, // Màu nền của container
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.5), // Màu của đổ bóng
+                                                              spreadRadius:
+                                                                  2, // Độ dài của đổ bóng
+                                                              blurRadius:
+                                                                  7, // Độ mờ của đổ bóng
+                                                              offset: Offset(0,
+                                                                  3), // Độ tịnh tiến của đổ bóng
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: ListTile(
+                                                          onTap: () {
+                                                            Get.toNamed(
+                                                                Routes
+                                                                    .BOOKING_DETAIL,
+                                                                arguments: controller
+                                                                    .listBooking
+                                                                    .value[
+                                                                        index]
+                                                                    .bookingListForStaffResponseDtos![
+                                                                        index1]
+                                                                    .bookingId);
+                                                          },
+                                                          title: Text(
+                                                            controller
                                                                 .listBooking
                                                                 .value[index]
                                                                 .bookingListForStaffResponseDtos![
                                                                     index1]
-                                                                .bookingId);
-                                                      },
-                                                      title: Text(
-                                                        controller
-                                                            .listBooking
-                                                            .value[index]
-                                                            .bookingListForStaffResponseDtos![
-                                                                index1]
-                                                            .carName
-                                                            .toString(),
-                                                        style: TextStyleConstant
-                                                            .black16RobotoBold,
-                                                      ),
-                                                      subtitle: RichText(
-                                                        text: new TextSpan(
-                                                          children: <TextSpan>[
-                                                            new TextSpan(
-                                                              text: 'Chủ xe:',
-                                                              style: TextStyleConstant
-                                                                  .black14RobotoBold,
+                                                                .carLicensePlate
+                                                                .toString(),
+                                                            style: TextStyleConstant
+                                                                .black16RobotoBold,
+                                                          ),
+                                                          subtitle: RichText(
+                                                            text: new TextSpan(
+                                                              children: <TextSpan>[
+                                                                new TextSpan(
+                                                                  text:
+                                                                      'Chủ xe:',
+                                                                  style: TextStyleConstant
+                                                                      .black14RobotoBold,
+                                                                ),
+                                                                new TextSpan(
+                                                                  text:
+                                                                      '  ${controller.listBooking.value[index].bookingListForStaffResponseDtos![index1].customerName}',
+                                                                  style: TextStyleConstant
+                                                                      .black14Roboto,
+                                                                ),
+                                                              ],
                                                             ),
-                                                            new TextSpan(
-                                                              text:
-                                                                  '  ${controller.listBooking.value[index].bookingListForStaffResponseDtos![index1].customerName}',
-                                                              style: TextStyleConstant
-                                                                  .black14Roboto,
-                                                            ),
-                                                          ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
+                                                      Positioned(
+                                                          top: 0,
+                                                          right: 0,
+                                                          child: controller.statusBooking(
+                                                              controller
+                                                                  .listBooking
+                                                                  .value[index]
+                                                                  .bookingListForStaffResponseDtos![
+                                                                      index1]
+                                                                  .bookingStatus!,    controller
+                                                                  .listBooking
+                                                                  .value[index]
+                                                                  .bookingListForStaffResponseDtos![
+                                                                      index1]
+                                                                  .waitForAccept!,
+                                                              context))
+                                                    ],
                                                   ),
-                                                  Positioned(
-                                                      top: 10,
-                                                      right: 10,
-                                                      child:
-                                                          Icon(Icons.more_vert))
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          separatorBuilder: (context, index1) =>
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                          itemCount: controller
-                                              .listBooking
-                                              .value[index]
-                                              .bookingListForStaffResponseDtos!
-                                              .length)),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                                );
+                                              },
+                                              separatorBuilder:
+                                                  (context, index1) => SizedBox(
+                                                        height: 10,
+                                                      ),
+                                              itemCount: controller
+                                                  .listBooking
+                                                  .value[index]
+                                                  .bookingListForStaffResponseDtos!
+                                                  .length)),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
               )),
         ],
       ),
