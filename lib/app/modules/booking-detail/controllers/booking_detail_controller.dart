@@ -76,7 +76,10 @@ class BookingDetailController extends BaseController {
         statusSend = -1;
         break;
       case "CheckIn":
-          Get.toNamed(Routes.BOOKING_DETAIL_SERVICE,arguments: idBooking);
+        Get.toNamed(Routes.BOOKING_DETAIL_SERVICE, arguments: idBooking);
+        break;
+      case "Warranty":
+        Get.toNamed(Routes.BOOKING_DETAIL_SERVICE, arguments: idBooking);
         break;
       default:
         statusSend = 4;

@@ -47,7 +47,7 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                           ? "Có sự thay đổi"
                           : status == 'Pending'
                               ? "Check In"
-                              : status == 'CheckIn'
+                              : status == 'CheckIn' || status == "Warranty"
                                   ? "Tiến trình"
                                   : "Đã hoàn thành",
                       style: TextStyleConstant.white16Roboto,
