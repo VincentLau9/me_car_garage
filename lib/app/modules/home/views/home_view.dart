@@ -207,65 +207,65 @@ class HomeView extends BaseView<HomeController> {
                 ],
               ),
             ),
-            Padding(
-              padding: UtilsReponsive.paddingOnly(context,
-                  left: 10, right: 10, top: 30),
-              child: Text(
-                "Cửa hàng đang làm việc",
-                style: TextStyleConstant.black16RobotoBold,
-              ),
-            ),
-            Container(
-              margin: UtilsReponsive.paddingOnly(context,
-                  left: 10, right: 10, top: 20),
-              width: UtilsReponsive.width(context, 375),
-              padding: UtilsReponsive.paddingAll(context, padding: 15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.grey.withOpacity(0.2),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: UtilsReponsive.width(context, 47),
-                    height: UtilsReponsive.width(context, 47),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(ImageAssets.imgStore),
-                          fit: BoxFit.fill),
-                    ),
-                  ),
-                  SizedBox(
-                    width: UtilsReponsive.width(context, 15),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                            width: UtilsReponsive.width(context, 200),
-                            child: Text(
-                              "Chi nhánh quận 6",
-                              style: TextStyleConstant.black16Roboto,
-                            )),
-                        SizedBox(
-                          height: UtilsReponsive.height(context, 10),
-                        ),
-                        Text(
-                          "0123456789",
-                          style: TextStyleConstant.grey14Roboto,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: UtilsReponsive.paddingOnly(context,
+            //       left: 10, right: 10, top: 30),
+            //   child: Text(
+            //     "Cửa hàng đang làm việc",
+            //     style: TextStyleConstant.black16RobotoBold,
+            //   ),
+            // ),
+            // Container(
+            //   margin: UtilsReponsive.paddingOnly(context,
+            //       left: 10, right: 10, top: 20),
+            //   width: UtilsReponsive.width(context, 375),
+            //   padding: UtilsReponsive.paddingAll(context, padding: 15),
+            //   decoration: BoxDecoration(
+            //     border: Border.all(
+            //       width: 1,
+            //       color: Colors.grey.withOpacity(0.2),
+            //     ),
+            //     borderRadius: BorderRadius.circular(15),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Container(
+            //         width: UtilsReponsive.width(context, 47),
+            //         height: UtilsReponsive.width(context, 47),
+            //         decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //               image: AssetImage(ImageAssets.imgStore),
+            //               fit: BoxFit.fill),
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         width: UtilsReponsive.width(context, 15),
+            //       ),
+            //       Expanded(
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             SizedBox(
+            //                 width: UtilsReponsive.width(context, 200),
+            //                 child: Text(
+            //                   "Chi nhánh quận 6",
+            //                   style: TextStyleConstant.black16Roboto,
+            //                 )),
+            //             SizedBox(
+            //               height: UtilsReponsive.height(context, 10),
+            //             ),
+            //             Text(
+            //               "0123456789",
+            //               style: TextStyleConstant.grey14Roboto,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: UtilsReponsive.paddingOnly(context,
                   left: 10, right: 10, top: 30),
@@ -623,7 +623,8 @@ class HomeView extends BaseView<HomeController> {
                                                                   .value[index]
                                                                   .bookingListForStaffResponseDtos![
                                                                       index1]
-                                                                  .bookingStatus!,    controller
+                                                                  .bookingStatus!,
+                                                              controller
                                                                   .listBooking
                                                                   .value[index]
                                                                   .bookingListForStaffResponseDtos![

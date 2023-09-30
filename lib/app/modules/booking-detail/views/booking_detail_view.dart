@@ -189,6 +189,56 @@ class BookingDetailView extends BaseView<BookingDetailController> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              controller.bookingDetail.value.warrantyReason ==
+                                      ""
+                                  ? Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 2,
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Đơn bảo hành '),
+                                        Text(
+                                          controller.bookingDetail.value
+                                              .warrantyReason!,
+                                          style: TextStyleConstant
+                                              .black16RobotoBold,
+                                        ),
+                                      ],
+                                    ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              controller.bookingDetail.value.warrantyReason ==
+                                      ""
+                                  ? Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 2,
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Lý do bảo hành: '),
+                                        Text(
+                                          controller.bookingDetail.value
+                                              .warrantyReason!,
+                                          style: TextStyleConstant
+                                              .black16RobotoBold,
+                                        ),
+                                      ],
+                                    ),
                               Container(
                                 margin: EdgeInsets.symmetric(vertical: 20),
                                 width: double.infinity,

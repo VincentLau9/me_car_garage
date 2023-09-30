@@ -19,6 +19,7 @@ class BookingDetail {
   String? totalPrice;
   String? finalPrice;
   String? bookingStatus;
+  String? warrantyReason;
   bool? waitForAccept;
   CarBookingDetailForStaffDto? carBookingDetailForStaffDto;
   List<GroupServiceBookingDetailDto>? groupServiceBookingDetailDtos;
@@ -34,9 +35,9 @@ class BookingDetail {
       this.finalPrice,
       this.carBookingDetailForStaffDto,
       this.groupServiceBookingDetailDtos,
+      this.warrantyReason,
       this.bookingStatus,
-      this.waitForAccept
-      });
+      this.waitForAccept});
 
   factory BookingDetail.fromJson(Map<String, dynamic> json) => BookingDetail(
         customerName: json["customerName"],
@@ -48,7 +49,8 @@ class BookingDetail {
         totalPrice: json["totalPrice"],
         finalPrice: json["finalPrice"],
         bookingStatus: json["bookingStatus"],
-        waitForAccept: json["waitForAccept"]??false,
+        warrantyReason: json["warrantyReason"] ?? "",
+        waitForAccept: json["waitForAccept"] ?? false,
         carBookingDetailForStaffDto: json["carBookingDetailForStaffDto"] == null
             ? null
             : CarBookingDetailForStaffDto.fromJson(
@@ -71,7 +73,8 @@ class BookingDetail {
         "totalPrice": totalPrice,
         "finalPrice": finalPrice,
         "bookingStatus": bookingStatus,
-        "waitForAccept":waitForAccept,
+        "waitForAccept": waitForAccept,
+        "warrantyReason": warrantyReason ?? "",
         "carBookingDetailForStaffDto": carBookingDetailForStaffDto?.toJson(),
         "groupServiceBookingDetailDtos": groupServiceBookingDetailDtos == null
             ? []

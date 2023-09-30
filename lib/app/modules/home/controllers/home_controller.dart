@@ -21,7 +21,7 @@ class HomeController extends BaseController {
   Rx<bool> swapTab = true.obs;
   @override
   Future<void> onInit() async {
-    await getBooking("11/11/2023");
+    await getBooking(DateFormat('MM/dd/yyyy').format(DateTime.now()));
     super.onInit();
   }
 
